@@ -2,10 +2,334 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Criativa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">    
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/forms.css">
+    <link rel="stylesheet" href="/styles/msg-logout.css">
+    <link rel="stylesheet" href="styles/my-profile.css">
+    <link rel="stylesheet" href="styles/maps.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
+
+<div id="container-info-users"  class="modal-overlay" style="display: none;">
+    <div class="modal-card">
+        <button id="close-modal" class="modal-close"></button>
+    
+        <form id="info-users" class="auth-form">
+            <!-- Cabeçalho -->
+            <div id="cabecalho-my-profile" class="profile-header">
+                <h2 class="form-title">Cadastro do usuário</h2>
+                <div id="img-users">
+                    <img src="images/logo.png" alt="Foto do usuário">
+                </div>
+            </div>
+
+            <!-- Campo Nome -->
+            <div class="input-field">
+                <label for="nome-info">Nome</label>
+                <input type="text" id="nome-info" name="nome" disabled>
+            </div>
+
+            <!-- Campo Email -->
+            <div class="input-field">
+                <label for="email-info">E-mail</label>
+                <input type="email" id="email-info" name="email" disabled>
+            </div>
+
+            <!-- Campo CPF -->
+            <div class="input-field">
+                <label for="cpf-info">CPF</label>
+                <input type="text" id="cpf-info" name="cpf" disabled>
+            </div>
+
+            <!-- Campo Telefone -->
+            <div class="input-field">
+                <label class="tel-label">Telefone</label>
+                <div class="tel-inputs-container">
+                    <input type="text" id="ddi" name="ddi" maxlength="3" placeholder="DDI" class="input-ddi" disabled>
+                    <input type="text" id="ddd" name="ddd" maxlength="2" placeholder="DDD" class="input-ddd" disabled>
+                    <div class="numero-container">
+                        <span class="fixo-nove">9</span>
+                        <input type="text" id="telefone" name="telefone" placeholder="Número" maxlength="9" class="input-telefone" disabled>
+                    </div>
+                </div>
+    
+                <!-- Checkbox WhatsApp -->
+                <div class="whatsapp-check-container">
+                    <div id="resultado-telefone" class="resultado-telefone"></div>
+                    <label for="check-whats" class="whatsapp-label">
+                    <input type="checkbox" name="whatsapp" id="check-whats" class="whatsapp-checkbox" disabled>
+                    <div>É WhatsApp?</div>
+                    </label>
+                </div>
+            </div>
+    
+            <!-- Campo Data de Nascimento -->
+            <div class="input-field">
+                <label for="nascimento-info">Data de Nascimento</label>
+                <input type="date" id="nascimento-info" name="nascimento" disabled>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+<div id="endereco" class="modal-overlay" style="display: flex;">
+    <div class="modal-card">
+        <button id="close-modal" class="modal-close"></button>
+        <form id="info-endereco" class="auth-form">
+            <h2 class="form-title">Cadastrar Endereço</h2>
+            
+            <div class="input-field">
+                <label for="apelido">Apelido</label>
+                <input type="text" id="apelido" name="apelido" placeholder="Ex: Casa, Trabalho, etc." required>
+            </div>
+
+
+
+            <div class="input-field">
+                <label for="maps">Adicionar localização</label>
+                <div id="container-maps">
+                    <div id="map"></div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"viewBox="0 0 24 24" fill="none" stroke="currentColor"stroke-width="2" stroke-linecap="round" stroke-linejoin="round"class="lucide lucide-map-pin"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                  </div>
+                
+                  <input type="text" id="lat-log" placeholder="Latitude,Longitude" disabled />
+            </div>
+
+            <div class="input-field">
+                <label for="cep-info">CEP</label>
+                <input type="text" id="cep" name="cep">
+            </div>
+            
+            <!-- Campo Endereço -->
+            <div class="input-field">
+                <label for="endereco-info">Endereço</label>
+                <input type="text" id="endereco-info" name="endereco" disabled>
+            </div>
+
+            <!-- Campo Número -->
+            <div class="input-field">
+                <label for="numero-info">Número</label>
+                <input type="number" id="numero-info" name="numero">
+            </div>
+
+            <!-- Campo Bairro -->
+            <div class="input-field">
+                <label for="bairro-info">Bairro</label>
+                <input type="text" id="bairro-info" name="bairro" disabled>
+            </div>
+
+            <!-- Campo Cidade -->
+            <div class="input-field">
+                <label for="cidade-info">Cidade</label>
+                <input type="text" id="cidade-info" name="cidade" disabled>
+            </div>
+
+            <!-- Campo Estado -->
+            <div class="input-field">
+                <label for="estado-info">Estado</label>
+                <input type="text" id="estado-info" name="estado" disabled>
+            </div>
+
+        </form>
+    </div>
+</div>
+  
+
+
+
+
+
+
+
+<div id="modal-users" style="display: none;" class="modal-overlay">
+    <div id="container-form-users" class="modal-card">
+        <button id="close-users" class="modal-close" aria-label="Fechar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+        </button>
+        
+        <form id="form-users" class="auth-form">
+            <h2 class="form-title">Login</h2>
+            
+            <div id="container-email-users" class="input-field">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required>
+                <div class="input-border"></div>
+            </div>
+            
+            <div id="container-cpf-users" class="input-field">
+                <label for="cpf">CPF</label> 
+                <input type="text" id="cpf" name="cpf" required>
+                <div class="input-border"></div>
+            </div>
+            <button class="primary-btn" type="button" id="editar-dados" style="display: none; ">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pen-off-icon lucide-pen-off">
+                    <path d="m10 10-6.157 6.162a2 2 0 0 0-.5.833l-1.322 4.36a.5.5 0 0 0 .622.624l4.358-1.323a2 2 0 0 0 .83-.5L14 13.982"/>
+                    <path d="m12.829 7.172 4.359-4.346a1 1 0 1 1 3.986 3.986l-4.353 4.353"/>
+                    <path d="m2 2 20 20"/>
+                </svg>
+                <span>Editar</span>
+            </button>
+              
+            <div style="display: none;" id="container-return-users" class="msg-return-form">
+                <div style="display: flex; align-items: center;" id="icon-users"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-search-icon lucide-folder-search"><path d="M10.7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v4.1"/><path d="m21 21-1.9-1.9"/><circle cx="17" cy="17" r="3"/></svg></div>
+                <span id="return-users"></span>
+            </div>
+            
+            <div id="container-btn-users" class="form-footer">
+                <button type="submit" class="primary-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-plus-icon lucide-user-plus"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+                    <span>Users</span>
+                </button>
+            </div>
+        </form>
+        
+    </div>
+
+    <div id="form-users-completo" style="display: none;" class="modal-card">
+        <button id="close-cadastro-users" class="modal-close" aria-label="Fechar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+            </svg>
+        </button>
+        
+        <form id="form-users-completo" class="auth-form">
+            <h2 class="form-title">Cadastro</h2>
+            
+            <div id="container-nome-users" class="input-field">
+                <div style="display: flex; gap: 10px; align-items: center; padding: 10px;"><label style="display: flex; align-items: center; margin: 0;" for="nome">Nome</label><div class="container-btn-edit"></div></div>
+                <input type="text" id="nome-users" name="nome" required>
+                <div class="input-border"></div>
+            </div>
+            
+            <div id="container-tel-users" class="input-field">
+                <div style="display: flex; gap: 10px; align-items: center; padding: 10px;"><label for="telefone" style="display: flex; align-items: center; margin: 0;">Telefone</label><div class="container-btn-edit" ></div></div>
+                <div style="display: flex;  align-items: center; justify-content: space-between; gap: 8px;">
+              
+                    <!-- Código do país -->
+                    <input type="text" id="ddi" name="ddi" maxlength="3" value="+55" style="width: 50px;" required>
+                
+                    <!-- DDD -->
+                    <input type="text" id="ddd" name="ddd" maxlength="2" value="75" style="width: 40px;" required>
+                
+                    <!-- Número (fixando o 9) -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex: 1;">
+                        <span style="margin-right: 2px; flex: auto;">9</span>
+                        <input type="text" id="telefone" name="telefone" maxlength="9" style="flex: auto;" required>
+                    </div>
+              
+                </div>
+              
+                <!-- Caixa de seleção do WhatsApp -->
+                <div id="check-whatsapp" style="display: none; align-items: center; justify-content: space-around; margin-top: 10px; flex-direction: row;">
+                    <div id="resultado-telefone" style=" color: #6b7280;"></div>
+                    <label for="whatsapp" style="display: flex; align-items: center; font-weight: bold; color: #4CAF50;">
+                    <input type="checkbox" name="whatsapp" id="check-whats" style="margin-right: 8px;">
+                    WhatsApp
+                    </label>
+                </div>
+            </div>
+
+            <div id="container-nascimento-users" class="input-field">
+                <div style="display: flex; gap: 10px; align-items: center; padding: 10px;"><label style="display: flex; align-items: center; margin: 0;" for="nascimento">Data de Nascimento</label><div class="container-btn-edit"></div></div>
+                <input type="date" id="nascimento-users" name="nascimento">
+                <div class="input-border"></div>
+            </div>
+              
+            <div style="display: none;" id="container-return-users" class="msg-return-form">
+                <div style="display: flex; align-items: center;" id="icon-users"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-search-icon lucide-folder-search"><path d="M10.7 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v4.1"/><path d="m21 21-1.9-1.9"/><circle cx="17" cy="17" r="3"/></svg></div>
+                <span id="return-users"></span>
+            </div>
+            
+            <div id="container-btn-users" class="form-footer">
+                <button type="submit" class="primary-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin-plus-icon lucide-map-pin-plus"><path d="M19.914 11.105A7.298 7.298 0 0 0 20 10a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32 32 0 0 0 .824-.738"/><circle cx="12" cy="10" r="3"/><path d="M16 18h6"/><path d="M19 15v6"/></svg>
+                    <span>Endereço</span>
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
 <body>
-    <h1>Esse é um teste, food.criativa.com</h1>
+    <header>
+        <div id="container-header">
+            <div class="menu-header" id="login-users"></div>
+            <div class="menu-header" id="logout-users" style="display: none;"><span>Sair</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg></div>
+            <div class="menu-header" id="users"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-plus-icon lucide-user-round-plus"><path d="M2 21a8 8 0 0 1 13.292-6"/><circle cx="10" cy="8" r="5"/><path d="M19 16v6"/><path d="M22 19h-6"/></svg></div>
+            <div class="menu-header" id="whatsapp"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone-forwarded-icon lucide-phone-forwarded"><polyline points="18 2 22 6 18 10"/><line x1="14" x2="22" y1="6" y2="6"/><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <div class="menu-header" id="instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram-icon lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div>
+            <div class="menu-header" id="carrinho"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></div>
+        </div>
+    </header>
+
+    <section>
+        <div class="mural-container">
+            <img id="logo-principal" src="/images/logo.png" alt="Logo do Perfil">
+        </div>
+    </section>
+
+    <main>
+        <div id="container-menu">
+            <div id="nome-loja">
+                <h1>Criativa Food</h1>
+                <h2>Feito com Amor</h2>
+            </div>
+            <nav>
+                <div class="menu-cardapio">Categoria 1</div>
+                <div class="menu-cardapio">Categoria 2</div>
+                <div class="menu-cardapio">Categoria 3</div>
+            </nav>
+        </div>
+
+        <div id="container-cardapio">
+            <!-- Os produtos serão carregados dinamicamente aqui pelo JavaScript -->
+        </div>
+
+    </main>
+
+    <footer id="footer">
+        <div class="footer-content">
+          <div id="logo-footer"><a href="https://www.teamcriativa.com/"><img id="logo" src="images/logo.svg" alt="Logo Criativa Food" class="logo-footer"></a></div>
+          <p>&copy; <span id="ano-atual"></span> <a href="https://www.teamcriativa.com/">Agência Criativa</a>. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+      
+        <script>document.getElementById("ano-atual").textContent = new Date().getFullYear();</script>
+        <!-- No <head> ou antes do seu script -->
+        <script src="https://unpkg.com/htm@3.1.1/preact/standalone.umd.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="scripts/config-supabase.js"></script>
+        <script src="/scripts/logo.js"></script>
+        <script src="/scripts/cardapio.js"></script>
+        <script src="/scripts/carrinho.js"></script>
+        <script src="/scripts/users.js"></script>
+        <script src="scripts/mask-cpf-tel.js"></script>
+        <script src="scripts/cadastro-geral.js"></script>
+        <script src="scripts/btn-edit.js"></script>
+        <script src="scripts/logout.js"></script>
+        <script src="scripts/carregar-localstorage.js"></script>
+        <script src="scripts/btn-close.js"></script>
+        <script src="scripts/exclui-zoom-2cliques.js"></script>
+        <script src="scripts/add-infor-users.js"></script>
+
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="scripts/cadastro-mapa.js"></script>
+        <script src="scripts/carregar-cep"></script>
+        
+          
+
 </body>
 </html>

@@ -1,0 +1,282 @@
+:root {
+  --bg-primary: #f9fafb;
+  --bg-secondary: #ffffff;
+  --accent-color: #cd533b;
+  --text-primary: #374151;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --hover-light: rgba(205, 83, 59, 0.08);
+  --success-green: #10b981;
+}
+
+/* ===== Modal Overlay e Card ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100dvh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-card {
+  width: 90%; max-width: 440px;
+  height: 85%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  animation: modalAppear 0.36s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== Botão de Fechar ===== */
+#close-modal {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 32px; height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.24s ease;
+}
+
+#close-modal:hover {
+  background: var(--hover-light);
+  transform: rotate(90deg);
+}
+
+/* ===== Formulário ===== */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 100%; /* em vez de height: 100% */
+  overflow-y: auto;
+}
+.auth-form::-webkit-scrollbar { width: 0; }
+
+/* ===== Título ===== */
+.form-title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+/* ===== Campo de entrada ===== */
+.input-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.4rem;
+}
+
+.input-field label {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.input-field input {
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  transition: 0.26s ease;
+}
+
+.input-field input:focus {
+  border-color: var(--accent-color);
+  background: var(--bg-secondary);
+  box-shadow: 0 0 0 3px rgba(205, 83, 59, 0.08);
+}
+
+/* Placeholder */
+.input-field input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+*:focus {
+  outline: none;
+}
+
+/* ===== Container de Edição ===== */
+.container-edit-category {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+
+.container-btn-edit {
+  position: absolute;
+  top: 50%;
+  right: 1%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+/* ===== Avatar do Usuário ===== */
+#img-users {
+  width: 100px; height: 100px;
+  margin: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+#img-users img {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+}
+
+/* ===== Inputs de Telefone ===== */
+.tel-label-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tel-inputs-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.tel-inputs-container input {
+  height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.input-ddi { width: 20% !important; }
+.input-ddd { width: 18% !important; }
+
+.numero-container {
+  display: flex;
+  align-items: center;
+  width: 60% !important;
+}
+
+.fixo-nove {
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.input-telefone {
+  flex-grow: 1;
+  width: 100% !important;
+}
+
+/* ===== Checkbox WhatsApp ===== */
+.whatsapp-check-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+.resultado-telefone {
+  color: var(--text-secondary);
+  font-size: 14px;
+  flex: 1 1 100%;
+}
+
+.whatsapp-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--success-green);
+  cursor: pointer;
+  user-select: none;
+}
+
+.whatsapp-label div {
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.whatsapp-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--success-green);
+  cursor: pointer;
+}
+
+/* ===== Botão Principal ===== */
+.primary-btn {
+  width: 100%;
+  padding: 1.05rem;
+  background: var(--accent-color);
+  color: var(--bg-secondary);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  transition: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 0.6rem;
+}
+
+.primary-btn:hover {
+  background: #b8452d;
+  transform: translateY(-1.5px);
+  box-shadow: 0 3px 12px rgba(205, 83, 59, 0.2);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+/* ===== Mensagem de Retorno ===== */
+.msg-return-form {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* ===== Animação Modal ===== */
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

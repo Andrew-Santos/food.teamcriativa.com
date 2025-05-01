@@ -1,0 +1,26 @@
+document.getElementById('cep').addEventListener('blur', function() {
+    var cep = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+    if (cep.length === 8) {  // Verifica se o CEP tem 8 caracteres
+        var url = `https://viacep.com.br/ws/${cep}/json/`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.erro) {
+                    alert('CEP não encontrado.');
+                } else {
+                    // Preenche os campos automaticamente
+                    document.getElementById('endereco-info').value = data.logradouro || '';
+                    document.getElementById('bairro-info').value = data.bairro || '';
+                    document.getElementById('cidade-info').value = data.localidade || '';
+                    document.getElementById('estado-info').value = data.uf || '';
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao consultar CEP:', error);
+                alert('Erro ao consultar o CEP.');
+            });
+    } else {
+        alert('CEP inválido.');
+    }
+});
