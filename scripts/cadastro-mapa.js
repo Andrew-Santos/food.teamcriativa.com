@@ -43,9 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function initMap(coords) {
         map = L.map('map').setView(coords, 16);
 
-        L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; OpenStreetMap contributors &copy; Stadia Maps',
-            maxZoom: 20
+        // Substitua a URL abaixo com seu token Mapbox
+        L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXdtc3NhbnRvcyIsImEiOiJjbTMxeHVza3ExMmFuMmxxMnNveDB5em9mIn0.tfOrK4p0it3nFTOSQ9IjhQ', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+                'Imagery © <a href="https://www.mapbox.com">Mapbox</a>',
+            maxZoom: 19
         }).addTo(map);
 
         centerMap(coords[0], coords[1]);
